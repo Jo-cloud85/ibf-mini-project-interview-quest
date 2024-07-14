@@ -123,7 +123,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
 
-  //// Read All Schedules //////////////////////////////////////////////////////
+  //// Read All Schedules ////////////////////////////////////////////////////////
   getAllSchedules(): void {
     this.showSchedules = true;
     this.subGetAll$ = this.googleCalendarSvc.getAllSchedules()
@@ -140,7 +140,7 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   }
 
 
-  //// Delete Schedule //////////////////////////////////////////////////////////
+  //// Delete Schedule ////////////////////////////////////////////////////////////
   deleteSchedule(scheduleId: string): void {
     this.subDelete$ = this.googleCalendarSvc.deleteSchedule(scheduleId)
       .subscribe({

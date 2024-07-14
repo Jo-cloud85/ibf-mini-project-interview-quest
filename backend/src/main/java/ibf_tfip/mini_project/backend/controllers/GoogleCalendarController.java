@@ -40,8 +40,6 @@ public class GoogleCalendarController {
         HttpServletRequest request, 
         HttpServletResponse response) throws IOException, GeneralSecurityException {
 
-        // Retrieve the access and refresh token first for access
-
         JsonReader jsonReader = Json.createReader(new StringReader(schedulePayload));
         JsonObject scheduleJsonObj = jsonReader.readObject();
 

@@ -29,11 +29,10 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizeRequests -> 
             authorizeRequests
                 .requestMatchers(
-                    "/",
+                    "/**",
                     "/api/auth/signup",
                     "/api/auth/signin",
-                    "/api/google/callback",
-                    "/error"
+                    "/api/google/callback"
                 )
                 .permitAll() // Allow unauthenticated access to signup
                 .anyRequest().authenticated()
@@ -53,7 +52,7 @@ public class SecurityConfig {
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not authenticated or token is invalid");
         }
-        // Depends on how you set in FirebaseAuthentication
+        // Depends on how you set up what you want to return in FirebaseAuthentication
         return (String) authentication.getPrincipal(); 
     }
 }
