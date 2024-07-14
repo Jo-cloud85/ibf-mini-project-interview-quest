@@ -27,14 +27,16 @@
         </div> -->
             
         <!-- Profile pic placeholder -->
-        <img 
-            id="avatarButton"
-            class="relative w-10 h-10 overflow-hidden bg-n-3 rounded-full dark:bg-gray-600 cursor-pointer"
-            type="button" 
-            data-dropdown-toggle="userDropdown" 
-            data-dropdown-placement="bottom-start"
-            [src]="auth.currentUser?.photoURL ? auth.currentUser?.photoURL : '/assets/blank-profile.png'"
-            alt="User dropdown"/>
+        <div class="avatar-container relative w-10 h-10 overflow-hidden bg-n-3 rounded-full dark:bg-gray-600 cursor-pointer">
+            <img 
+              id="avatarButton"
+              class="avatar-image w-full h-full object-cover"
+              type="button" 
+              data-dropdown-toggle="userDropdown" 
+              data-dropdown-placement="bottom-start"
+              [src]="auth.currentUser?.photoURL ? auth.currentUser?.photoURL : '/assets/blank-profile.png'"
+              alt="User dropdown"/>
+        </div>
 
         <!-- Dropdown menu -->
         <div 

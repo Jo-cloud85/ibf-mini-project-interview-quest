@@ -1,5 +1,11 @@
+# Ignore .env file
+.env
+
+# Ignore other unnecessary files and directories
+.git
+.gitignore
 frontend/dist
 frontend/node_modules
+backend/node_modules
 backend/target
-backend/tokens
 backend/.env

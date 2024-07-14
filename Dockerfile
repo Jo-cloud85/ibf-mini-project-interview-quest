@@ -8,7 +8,9 @@ RUN npm i -g @angular/cli@17.3.8
 
 COPY frontend/angular.json .
 COPY frontend/package*.json .
+COPY frontend/package*.json .
 COPY frontend/tsconfig*.json .
+COPY frontend/tailwind.config.js . 
 COPY frontend/ngsw-config.json .
 COPY frontend/src src
 
@@ -40,22 +42,25 @@ WORKDIR /app
 COPY --from=javabuild /backend/target/backend-0.0.1-SNAPSHOT.jar app.jar
 
 # Uncomment when you want to run the docker container locally
-# ENV GOOGLE_CLIENT_ID=
-# ENV GOOGLE_CLIENT_SECRET=
-# ENV GOOGLE_REDIRECT_URI=
-# ENV GOOGLE_CALENDAR_API_KEY=
-# ENV S3_SECRET_KEY=
-# ENV S3_ACCESS_KEY=
-# ENV MYSQL_URL=
-# ENV MYSQLUSER=
-# ENV MYSQLPASSWORD=
-# ENV OPENAI_API_KEY=
-# ENV SPRING_MAIL_USERNAME=
-# ENV SPRING_MAIL_PASSWORD=
-# ENV CLOUDSDK_CONFIG=/gcp/config
-# ENV GOOGLE_APPLICATION_CREDENTIALS_FIREBASE_BASE64 /app/firebase-credentials.json
+ENV GOOGLE_CLIENT_ID=
+ENV GOOGLE_CLIENT_SECRET=
+ENV GOOGLE_REDIRECT_URI=
+ENV GOOGLE_CALENDAR_API_KEY=
+ENV FIREBASE_ADMINSDK_BASE64=
 
-ENV PORT=9000
+ENV S3_SECRET_KEY=
+ENV S3_ACCESS_KEY=
+
+ENV MYSQL_URL=
+ENV MYSQLUSER=
+ENV MYSQLPASSWORD=
+
+ENV OPENAI_API_KEY=
+
+ENV SPRING_MAIL_USERNAME=
+ENV SPRING_MAIL_PASSWORD=
+
+ENV PORT=8080
 
 EXPOSE ${PORT}
 

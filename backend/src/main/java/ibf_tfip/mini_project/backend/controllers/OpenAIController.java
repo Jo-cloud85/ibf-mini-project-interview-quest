@@ -62,7 +62,7 @@ public class OpenAIController {
 
     private final Integer numberOfQns = 5;
 
-    private final String baseUrl = "https://zippy-strength-production.up.railway.app/";
+    private final String baseUrl = "https://zippy-strength-production.up.railway.app";
 
     // Each custom job created should have:
     // 1 custom job id, 1 assistant id, 1 vector id, 1 thread id (mainthread), multiple run ids 

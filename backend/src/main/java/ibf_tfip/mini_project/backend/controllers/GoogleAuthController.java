@@ -40,7 +40,7 @@ public class GoogleAuthController {
     @Autowired
     private GoogleTokenService googleTokenSvc;
 
-    private String baseUrl = "http://localhost:8080";
+    private String baseUrl = "https://zippy-strength-production.up.railway.app";
 
 
     // https://developers.google.com/identity/protocols/oauth2/web-server#sample-oauth-2.0-server-response

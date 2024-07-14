@@ -40,5 +40,5 @@ create table schedule (
     FOREIGN KEY (userId) REFERENCES user_auth_details(userId)
 );
 
-grant all privileges on interview_quest.* to 'abcde'@'%';
-flush privileges;
+-- grant all privileges on interview_quest.* to 'abcde'@'%';
+-- flush privileges;

@@ -32,7 +32,6 @@ import { AllJobSummaryComponent } from './components/main-app/dashboard/overview
 import { ScheduleComponent } from './components/main-app/dashboard/schedule/schedule.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { environment } from '../environments/environment';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { NavbarComponent } from './components/main-app/dashboard/navbar.component';
 import { PasswordResetComponent } from './components/auth/password-reset.component';
@@ -40,6 +39,16 @@ import { AllAttemptedQuestionsComponent } from './components/main-app/dashboard/
 import { QuestionThreadComponent } from './components/main-app/dashboard/archive/question-thread.component';
 import { AllAttemptedJobSummaryComponent } from './components/main-app/dashboard/archive/all-attempted-job-summary.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDRiurP6EfCnWfuQJYTKg5twqfxBAcJQYI",
+  authDomain: "interviewquest-b0b2e.firebaseapp.com",
+  databaseURL: "https://interviewquest-b0b2e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "interviewquest-b0b2e",
+  storageBucket: "interviewquest-b0b2e.appspot.com",
+  messagingSenderId: "35471201213",
+  appId: "1:35471201213:web:c4468b22a8384f91a438d4"
+};
 
 @NgModule({
   declarations: [
@@ -79,8 +88,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    ServiceWorkerModule.register('reg_sw.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [
     {
