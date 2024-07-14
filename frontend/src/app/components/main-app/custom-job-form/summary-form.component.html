@@ -1,0 +1,93 @@
+<!-- Cannot create separate component for successTemplate and use routerLink as redirectly whil
+http is still processing will cancel the api call the moment we redirect away -->
+
+<div class="container mt-28" *ngIf="!isSubmitted; else successTemplate">
+    <div class="text-4xl text-n-1 font-semibold pb-8">Summary</div>
+    <div>
+        <form (ngSubmit)="saveChanges()">
+            <p class="h6 pb-4 underline underline-offset-4">Job Details</p>
+            <div class="mb-6">
+                <label for="jobTitle" class="form-label">Job Title</label>
+                <input type="text" class="form-input" [(ngModel)]="jobForm.jobTitle" name="jobTitle">
+            </div>
+            <div class="mb-6">
+                <label for="jobDescription" class="form-label">Job Description</label>
+                <textarea rows=10 class="form-input" [(ngModel)]="jobForm.jobDescription" name="jobDescription"></textarea>
+            </div>
+            <div class="mb-6 flex flex-col gap-6">
+                <label for="jobLevel" class="block text-gray-700 font-semibold">Job Level</label>
+                <select id="jobLevel" class="block p-2 border border-gray-300 rounded" [(ngModel)]="jobForm.jobLevel" name="jobLevel">
+                    <option value="" disabled selected>Please select</option>
+                    <option value="INTERNSHIP">Internship</option>
+                    <option value="ENTRY">Entry</option>
+                    <option value="JUNIOR">Junior</option>
+                    <option value="MID">Mid</option>
+                    <option value="SENIOR">Senior</option>
+                    <option value="OTHERS">Others</option>
+                </select>
+            </div>
+            <p class="h6 py-4 underline underline-offset-4">Company Details</p>
+            <div class="mb-6">
+                <label for="companyName" class="form-label">Company Name</label>
+                <input type="text" id="companyName" class="form-input" [(ngModel)]="companyForm.companyName" name="companyName">
+            </div>
+            <div class="mb-6">
+                <label for="companyDetails" class="form-label">Company Details</label>
+                <textarea rows=10 class="form-input" [(ngModel)]="companyForm.companyDetails" name="companyDetails"></textarea>
+            </div>
+            <p class="h6">Documents</p>
+            <ul class="mb-6">
+                <li *ngFor="let file of uploadForm; let i = index">
+                    <input 
+                        type="file" 
+                        (change)="onFileChange($event)" 
+                        accept=".doc,.docx,application/pdf,.md,.txt" 
+                        style="display:none;">
+                    {{ file.name }} ({{ file.size }} bytes)
+                    <button type="button" class="ml-2 text-red-500" (click)="removeFile(i)">X</button>
+                </li>
+            </ul>
+            <div class="mb-16">
+                <button type="button" class="custom-button-01" (click)="addFile()">Add Document</button>
+                <input 
+                    type="file" 
+                    (change)="onFileChange($event)" 
+                    accept=".doc,.docx,application/pdf,.md,.txt" 
+                    style="display:none;" 
+                    #fileInput>
+            </div>
+            <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
+                <button 
+                    type="button" 
+                    class="custom-button-01"
+                    (click)="onBack()">Back to dashboard</button>
+                <button 
+                    type="submit" 
+                    class="custom-button-01">Create Job</button>
+            </div>
+        </form>
+    </div>
+</div>
+<ng-template #successTemplate>
+    <div class="container mt-28 h-svh flex flex-col justify-center gap-y-10">
+        <p class="h2">Custom job creating in progress!</p>
+        <p>Now let AI take some time to customize the questions for you.</p>
+        <p>Please do not click away as this will cancel the request.</p>
+        <div 
+            *ngIf="isLoadingCustomJob; else enableBackButton" class="dots-container mt-7">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <ng-template #enableBackButton>
+            <div>
+                <button 
+                    (click)="switchToDashboard()"
+                    class="custom-button-01">Back to dashboard
+                </button>
+            </div>
+        </ng-template>
+    </div>
+</ng-template>

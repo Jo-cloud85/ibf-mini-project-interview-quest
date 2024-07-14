@@ -1,0 +1,7 @@
+.custom-height {
+    height: calc(100svh - 2.5rem);
+}
+
+.nav-tab.active {
+    background-color: #FE7E35; 
+}

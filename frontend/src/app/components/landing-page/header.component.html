@@ -1,0 +1,24 @@
+<div class="fixed top-0 left-0 w-full z-50 p-8 border-b border-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm">
+    <div class="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:py-5">
+        <!-- company logo -->
+        <a class="block w-[16rem] xl:mr-8" href="#hero">
+            <div class="flex flex-row items-center gap-3">
+                <img [src]="interviewquest" alt="interview-quest" [width]="40" class="p-1"/>
+                <span class="text-xl font-bold tracking-tight">InterviewQuest</span>
+            </div>
+        </a>
+         <!-- sign in/sign up -->
+        <div class="flex items-center gap-10">
+            <a
+                [routerLink]="['/signin']"
+                class="hidden text-n-1/50 transition-colors hover:text-n-1 hover:underline hover:underline-offset-8 lg:block"
+            >Sign in
+            </a>
+            <button 
+                [routerLink]="['/signup']"
+                class="hidden lg:flex orange-outline-button-02"
+            >Start Quest Now
+            </button>
+        </div>
+    </div>
+</div>

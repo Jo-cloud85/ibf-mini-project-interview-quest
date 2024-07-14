@@ -1,0 +1,111 @@
+<div *ngIf="question">
+    <!-- Question type and back button -->
+    <div class="flex items-center justify-between">
+        <p class="h5 py-7">{{ question.questionType }}</p>
+        <div>
+            <button 
+                type="button" 
+                (click)="backToAllQuestions()" 
+                class="orange-button-01">Back
+            </button>
+        </div>
+    </div>
+    
+    <div class="grid grid-cols-2 custom-height mt-6">
+        <!-- Left half grid -->
+        <div class="flex flex-col gap-6 border-e border-stroke-2 border-opacity-50 pe-10">
+            <!-- Question -->
+            <p>{{ question.question }}</p>
+            <div>
+                <div 
+                    (click)="toggleAccordion()" 
+                    class="cursor-pointer flex items-center justify-between w-full p-3 font-semibold text-sm text-left text-n-1 bg-transparent border border-n-3  focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-n-3 dark:hover:bg-gray-800"
+                >
+                    Suggested answer approach
+                    <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 9a3 3 0 0 1 3-3m-2 15h4m0-3c0-4.1 4-4.9 4-9A6 6 0 1 0 6 9c0 4 4 5 4 9h4Z"/>
+                    </svg>               
+                </div>
+                <div 
+                    *ngIf="showAnswerApproach"
+                    class="p-3 border border-gray-200 dark:border-gray-700">
+                    <p class="mb-2 text-sm font-light ">{{ question.answerApproach }}</p>
+                </div>
+            </div>
+            <!-- User form/input -->
+            <form 
+                [formGroup]="answerForm" 
+                (ngSubmit)="onSubmit()" 
+                class="flex flex-col gap-10">
+                <textarea 
+                    class="form-input"
+                    formControlName="userAnswer" 
+                    placeholder="Your answer" 
+                    rows="15" 
+                    cols="25">
+                </textarea>
+                <div class="flex justify-between">
+                    <button 
+                        type="submit" 
+                        class="custom-button-01">Submit my answer
+                    </button>
+                    <button 
+                        type="button" 
+                        (click)="generateAnswer()" 
+                        class="custom-button-01">AI generate
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right half grid -->
+        <div>
+            <!-- AI Feedback -->
+            <div class="pb-6 ms-8">
+                <p class="flex items-center justify-between w-full p-3 font-semibold text-sm text-left text-n-1 border bg-n-3 focus:ring-4 focus:ring-gray-200">
+                    AI Feedback
+                    <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.556 8.5h8m-8 3.5H12m7.111-7H4.89a.896.896 0 0 0-.629.256.868.868 0 0 0-.26.619v9.25c0 .232.094.455.26.619A.896.896 0 0 0 4.89 16H9l3 4 3-4h4.111a.896.896 0 0 0 .629-.256.868.868 0 0 0 .26-.619v-9.25a.868.868 0 0 0-.26-.619.896.896 0 0 0-.63-.256Z"/>
+                    </svg>
+                </p>
+                <div 
+                    *ngIf="isLoadingFeedback else showFeedback;" 
+                    class="dots-container mt-10">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <ng-template #showFeedback>
+                    <div *ngIf="aiFeedback" class="ai-feedback">
+                        <p class="py-5" [innerHTML]="aiFeedback"></p>
+                    </div>
+                </ng-template>
+            </div>
+            <!-- AI Answers -->
+            <div class="pb-6 ms-8">
+                <p class="flex items-center justify-between w-full p-3 font-semibold text-sm text-left text-n-1 border bg-n-3 focus:ring-4 focus:ring-gray-200">
+                    AI Answer
+                    <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.872 9.687 20 6.56 17.44 4 4 17.44 6.56 20 16.873 9.687Zm0 0-2.56-2.56M6 7v2m0 0v2m0-2H4m2 0h2m7 7v2m0 0v2m0-2h-2m2 0h2M8 4h.01v.01H8V4Zm2 2h.01v.01H10V6Zm2-2h.01v.01H12V4Zm8 8h.01v.01H20V12Zm-2 2h.01v.01H18V14Zm2 2h.01v.01H20V16Z"/>
+                    </svg>                      
+                </p>
+                <div 
+                    *ngIf="isLoadingAnswer; else showAnswer" 
+                    class="dots-container mt-10">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <ng-template #showAnswer>
+                    <div *ngIf="aiGeneratedAnswer" class="ai-generated-answer">
+                        <p class="py-5" [innerHTML]="aiGeneratedAnswer"></p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

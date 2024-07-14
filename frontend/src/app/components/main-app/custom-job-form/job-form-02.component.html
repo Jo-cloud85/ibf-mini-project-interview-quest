@@ -1,0 +1,36 @@
+<div class="container mt-28">
+    <div class="text-4xl text-n-1 font-semibold pb-8">Tell us more about the company you are interviewing for</div>
+    <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+        <div class="mb-6">
+            <label 
+                for="companyName" 
+                class="form-label">Company Name (Optional)</label>
+            <input 
+                type="text" 
+                formControlName="companyName" 
+                class="form-input"
+                placeholder="Write name of company...">
+        </div>
+        <div class="mb-6">
+            <label 
+                for="companyDetails" 
+                class="form-label">Company Details (Optional)</label>
+            <textarea 
+                rows=10
+                cols="5"
+                formControlName="companyDetails" 
+                class="form-input" 
+                placeholder="Write details about the company that you know..."></textarea>
+        </div>
+        <div class="grid grid-cols-4 gap-6 md:grid-cols-6">
+            <button 
+                [routerLink]="['/interview-quest/custom-job-form/01']" 
+                type="button" 
+                class="custom-button-01">Back</button>
+            <!-- No need to disabled if form not filled because this form is optional -->
+            <button 
+                type="submit" 
+                class="custom-button-01">Next</button>
+        </div>
+    </form>
+</div>

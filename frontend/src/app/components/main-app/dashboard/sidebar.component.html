@@ -1,0 +1,62 @@
+<div class="bg-n-3 box-border h-svh flex flex-col p-3">
+    <!-- Logo -->
+    <div class="flex flex-row items-center gap-x-1 m-5 pt-2 pb-5">
+        <img [src]="interviewquest_logo" alt="interviewquest_logo" [width]="40" class="p-1"/>
+        <span class="text-xl font-semibold">InterviewQuest</span>
+    </div>
+    <!-- Sidetabs -->
+    <div class="h-full grid grid-cols-1 content-between">
+        <ul>
+            <li 
+                class="nav-tab"
+                [routerLink]="['/interview-quest/overview']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <img [src]="overview_icon" [width]="20">
+                <p>Overview</p>
+            </li>
+            <li class="nav-tab"
+                [routerLink]="['/interview-quest/archive']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <img [src]="archive_icon" [width]="20">
+                <p>Archive</p>
+            </li>
+            <li class="nav-tab"
+                [routerLink]="['/interview-quest/schedule']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <div>
+                    <img [src]="schedule_icon" [width]="20">
+                </div>
+                <p>Schedule</p>
+            </li>
+            <li class="nav-tab"
+                [routerLink]="['/interview-quest/profile']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <div class="flex items-center">
+                    <img [src]="profile_icon" [width]="20">
+                </div>
+                <p>Profile</p>
+            </li>
+            <li class="nav-tab"
+                [routerLink]="['/interview-quest/faqs']" 
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }"
+            >
+                <div class="flex items-center ">
+                    <img [src]="faq_icon" [width]="20">
+                </div>
+                <p>FAQ</p>
+            </li>
+        </ul>
+        <button class="orange-button-01" type="button" (click)="processSignOut()">
+            Sign out
+        </button>
+    </div>
+</div>

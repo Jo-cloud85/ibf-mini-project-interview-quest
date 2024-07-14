@@ -1,0 +1,28 @@
+/* Style for the FAQ container */
+.faq-container {
+    max-width: 600px; /* Adjust as needed */
+    margin: 0 auto;
+    }
+
+/* Style for each FAQ item */
+.faq-item {
+    margin-bottom: 20px;
+}
+
+/* Style for the question */
+.faq-question {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Style for the answer (hidden by default) */
+.faq-answer {
+    display: none;
+    padding-left: 20px;
+}
+
+/* Style for the active (open) FAQ item */
+.faq-item.active .faq-answer {
+    display: block;
+}
+  

@@ -1,0 +1,77 @@
+{"properties": [
+  {
+    "name": "jwt.key.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.key.secret'"
+  },
+  {
+    "name": "s3.secret.key",
+    "type": "java.lang.String",
+    "description": "A description for 's3.secret.key'"
+  },
+  {
+    "name": "s3.access.key",
+    "type": "java.lang.String",
+    "description": "A description for 's3.access.key'"
+  },
+  {
+    "name": "s3.endpoint",
+    "type": "java.lang.String",
+    "description": "A description for 's3.endpoint'"
+  },
+  {
+    "name": "s3.region",
+    "type": "java.lang.String",
+    "description": "A description for 's3.region'"
+  },
+  {
+    "name": "firebase.url",
+    "type": "java.lang.String",
+    "description": "A description for 'firebase.url'"
+  },
+  {
+    "name": "google.application.credentials",
+    "type": "java.lang.String",
+    "description": "A description for 'google.application.credentials'"
+  },
+  {
+    "name": "openai.api.url",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.url'"
+  },
+  {
+    "name": "openai.api.model",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.model'"
+  },
+  {
+    "name": "openai.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.key'"
+  },
+  {
+    "name": "openai.api.assistant.version",
+    "type": "java.lang.String",
+    "description": "A description for 'openai.api.assistant.version'"
+  },
+  {
+    "name": "stripe.subscription.url",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.subscription.url'"
+  },
+  {
+    "name": "stripe.secret.key",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.secret.key'"
+  },
+  {
+    "name": "stripe.secret.test",
+    "type": "java.lang.String",
+    "description": "A description for 'stripe.secret.test'"
+  },
+  {
+    "name": "google.calendar.api.key",
+    "type": "java.lang.String",
+    "description": "A description for 'google.calendar.api.key'"
+  }
+]}

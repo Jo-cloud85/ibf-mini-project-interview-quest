@@ -1,0 +1,12 @@
+<div class="container h-svh flex flex-col justify-center gap-y-10">
+    <p class="h2">Congratulations for taking the first step!</p>
+    <p>In the following steps, tell us more about yourself and the job you are interviewing for.</p>
+    <p>We use this information to generate custom practice interview questions for the job that you are applying to.</p>
+    <p>The more information you upload, the better our tool works!</p>
+    <p>Let's get started!</p>
+    <div class="flex gap-x-5">
+        <button [routerLink]="['/interview-quest']" class="custom-button-01">Back to dashboard</button>
+        <button [routerLink]="['/interview-quest/custom-job-form/01']" class="custom-button-01">Next</button>
+    </div>
+    <router-outlet></router-outlet>
+</div>

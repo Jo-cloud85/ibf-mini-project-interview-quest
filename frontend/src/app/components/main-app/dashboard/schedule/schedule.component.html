@@ -1,0 +1,228 @@
+<div class="container mx-auto p-4">
+    <!-- Title and back button -->
+    <div class="flex items-center justify-between">
+        <p class="h5 py-7">Schedule your next practice with Google Calendar</p>
+        <div>
+            <button 
+                type="button" 
+                [routerLink]="['/interview-quest']"
+                class="orange-button-01">Back
+            </button>
+        </div>
+    </div>
+
+    <!-- Responsive layout container -->
+    <div class="flex flex-col gap-16 md:flex-col md:gap-16 sm:flex-row sm:gap-16 mt-7">
+        <!-- Schedule Form -->
+        <form [formGroup]="scheduleForm" (ngSubmit)="createSchedule()">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-x-8">
+                <!-- Left grid column -->
+                <div class="flex flex-col gap-8 md:col-span-2">
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label 
+                            for="title" 
+                            class="form-label">Title
+                        </label>
+                        <input 
+                            type="text" 
+                            id="title" 
+                            placeholder="Title"
+                            formControlName="title" 
+                            class="form-input">
+                        <div *ngIf="scheduleForm.get('title')?.touched">
+                            <small 
+                                *ngIf="scheduleForm.get('title')?.hasError('required')" 
+                                class="text-xs text-n-2">
+                                This field is required.
+                            </small>
+                            <small 
+                                *ngIf="scheduleForm.get('title')?.hasError('minlength')" 
+                                class="text-xs text-n-2">
+                                Title must be at least 3 characters long.
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Description (optional) -->
+                    <div class="form-group">
+                        <label 
+                            for="description" 
+                            class="form-label">Description (optional)
+                        </label>
+                        <textarea 
+                            id="description" 
+                            placeholder="Description"
+                            formControlName="description" 
+                            rows="1" 
+                            class="form-input">
+                        </textarea>
+                    </div>
+                </div>
+
+                <!-- Right grid column -->
+                <div class="flex flex-col gap-8 md:col-span-3 md:my-0 sm:my-6">
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                        <!-- Start Date Time -->
+                        <div class="form-group col-span-2">
+                            <label 
+                                for="startDateTime" 
+                                class="form-label">Start Date & Time</label>
+                            <input 
+                                type="datetime-local" 
+                                id="startDateTime"
+                                formControlName="startDateTime"
+                                class="form-input">
+                            <div *ngIf="scheduleForm.get('startDateTime')?.touched">
+                                <small 
+                                    *ngIf="scheduleForm.get('startDateTime')?.hasError('required')" 
+                                    class="text-xs text-n-2">
+                                    This field is required.
+                                </small>
+                                <small 
+                                    *ngIf="scheduleForm.get('startDateTime')?.hasError('futureDateValidator')" 
+                                    class="text-xs text-n-2">
+                                    Start date must be in the future.
+                                </small>
+                            </div>
+                        </div>
+                    
+                        <!-- Duration -->
+                        <div class="form-group col-span-1">
+                            <label 
+                                for="duration" 
+                                class="form-label">Duration (Hr)
+                            </label>
+                            <select 
+                                id="duration" 
+                                formControlName="duration" 
+                                class="form-input">
+                                <option 
+                                    *ngFor="let duration of ['0.5', '1.0', '1.5', '2.0', '2.5', '3.0']" 
+                                    [value]="duration">{{ duration }}
+                                </option>
+                            </select>
+                            <small 
+                                *ngIf="scheduleForm.get('duration')?.hasError('required') && scheduleForm.get('duration')?.touched" 
+                                class="text-xs text-n-2">
+                                This field is required.
+                            </small>
+                        </div>
+
+                        <!-- Count -->
+                        <div class="form-group col-span-1">
+                            <label 
+                                for="count" 
+                                class="form-label">Count
+                            </label>
+                            <select 
+                                id="count" 
+                                formControlName="count" 
+                                class="form-input">
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                            </select>
+                        </div>
+                    
+                        <!-- Interval -->
+                        <div class="form-group col-span-1">
+                            <label 
+                                for="interval" 
+                                class="form-label">Interval
+                            </label>
+                            <input 
+                                type="number"
+                                min=1 
+                                id="interval" 
+                                formControlName="interval" 
+                                class="form-input">
+                            <div 
+                                *ngIf="scheduleForm.get('occurrences')?.touched && scheduleForm.get('occurrences')?.hasError('required')" 
+                                class="text-xs text-n-2">
+                                This field is required.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label 
+                            for="email" 
+                            class="form-label">Gmail
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            placeholder="Gmail"
+                            formControlName="email" 
+                            class="form-input">
+                        <div 
+                            *ngIf="scheduleForm.get('email')?.touched && scheduleForm.get('email')?.invalid" 
+                            class="text-xs text-n-2">
+                            Must be a valid email address.
+                        </div>
+                        <small class="text-gray-500 italic">Make sure that you have a valid Google Account.</small>
+                    </div>
+                </div>
+            </div>
+            <button 
+                type="submit" 
+                [disabled]="scheduleForm.invalid" 
+                class="custom-button-01 mt-4">
+                Save Schedule
+            </button>
+        </form>
+
+        <!-- List of Schedules -->
+        <div class="flex flex-col gap-y-8">
+            <div class="w-full justify-items-center text-center">
+                <p
+                    (click)="getAllSchedules()"
+                    class="box-background">
+                    See existing schedules
+                    <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m11.5 11.5 2.071 1.994M4 10h5m11 0h-1.5M12 7V4M7 7V4m10 3V4m-7 13H8v-2l5.227-5.292a1.46 1.46 0 0 1 2.065 2.065L10 17Zm-5 3h14a1 1 0 0 0 1-1V7a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                    </svg>
+                </p>
+            </div>
+        
+            <div *ngIf="showSchedules">
+                <ul 
+                    *ngIf="schedules; else noSchedule;"
+                    class="mt-4 space-y-4">
+                    <h2 class="text-xl font-semibold">Schedules</h2>
+                    <li 
+                        *ngFor="let schedule of schedules" 
+                        class="p-4 border rounded-md"
+                    >
+                        <h3 class="text-lg font-bold">{{ schedule.title }}</h3>
+                        <p>{{ schedule.description }}</p>
+                        <p>Starts: {{ schedule.startDateTime | date: 'short' }}</p>
+                        <p>Duration: {{ getDurationInHours(schedule.startDateTime, schedule.endDateTime) | number: '1.1-1' }} hours</p>
+                        <div class="flex gap-3">
+                            <a 
+                                class="custom-button-02" 
+                                [href]="schedule.url" 
+                                target="_blank">
+                                View on Google Calendar
+                            </a>
+                            <button 
+                                class="custom-button-02" 
+                                type="button"
+                                (click)="deleteSchedule(schedule.scheduleId)"
+                            >
+                                <svg class="w-[20px] h-[20px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+                <ng-template #noSchedule>
+                    Looks like you have not created any schedule...
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

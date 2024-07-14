@@ -1,0 +1,65 @@
+<div class="border-b border-stroke-2 border-opacity-50 my-5 pb-6 flex items-start justify-between">
+    <form 
+        [formGroup]="searchForm" 
+        (ngSubmit)="search()"
+    >   
+        <div class="relative">
+            <input 
+                type="text" 
+                id="search" 
+                class="form-input-02" 
+                placeholder="Search by position, level ..."
+                formControlName="q">
+            <button type="submit" class="orange-button-02">
+                <svg class="w-4 h-auto" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+        </div>
+    </form>
+
+    <div class="flex items-center justify-center gap-6">
+        <!-- Notification -->
+        <!-- <div class="flex h-[3rem] relative cursor-pointer">
+            <img [src]="notification_icon" [width]="30">
+            <span class="top-2 left-4 absolute  w-3.5 h-3.5 bg-n-2 border-2 border-white dark:border-gray-800 rounded-full"></span>
+        </div> -->
+            
+        <!-- Profile pic placeholder -->
+        <img 
+            id="avatarButton"
+            class="relative w-10 h-10 overflow-hidden bg-n-3 rounded-full dark:bg-gray-600 cursor-pointer"
+            type="button" 
+            data-dropdown-toggle="userDropdown" 
+            data-dropdown-placement="bottom-start"
+            [src]="auth.currentUser?.photoURL ? auth.currentUser?.photoURL : '/assets/blank-profile.png'"
+            alt="User dropdown"/>
+
+        <!-- Dropdown menu -->
+        <div 
+            id="userDropdown" 
+            class="z-10 hidden bg-n-0 divide-y divide-gray-100 rounded-lg shadow-md w-52 dark:bg-gray-700 dark:divide-gray-600">
+            <div class="pt-6 pb-4 px-4 text-sm border-b border-n-3 text-gray-900 dark:text-white">
+                <p class="font-semibold pb-1">{{auth.currentUser?.displayName}}</p>
+                <p class="font-medium truncate">{{auth.currentUser?.email}}</p>
+            </div>
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
+                <li>
+                    <a 
+                        [routerLink]="['/interview-quest/profile']" 
+                        class="block px-4 py-3 hover:bg-n-1 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white">
+                        Profile
+                    </a>
+                </li>
+                <li>
+                    <a 
+                        (click)="processSignOut()"
+                        class="block px-4 py-3 hover:bg-n-1 hover:text-white  dark:hover:bg-gray-600 dark:hover:text-white">
+                        Sign out
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

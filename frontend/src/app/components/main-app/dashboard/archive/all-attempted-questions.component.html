@@ -1,0 +1,33 @@
+<div *ngIf="questions.length > 0; else noQuestionsFound">
+    <!-- Title and back button -->
+    <div class="flex items-center justify-between">
+        <p class="h5 py-7">Questions</p>
+        <div>
+            <button 
+                type="button" 
+                [routerLink]="['/interview-quest']"
+                class="custom-button-01">Back
+            </button>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-6">
+        <div 
+            *ngFor="let q of questions; let i = index" 
+            (click)="goToAttemptedQuestionThread(q.questionId)"
+            class="w-2/5 p-6 bg-n-3 rounded-lg flex flex-col gap-3 cursor-pointer"
+        >
+            <p class="font-semibold">{{ i + 1 }}. {{ q.questionType }}</p>
+            <p>{{ q.question }}</p>
+            <button href="#" class="orange-outline-button-01 flex items-center">
+                View thread
+                <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+<ng-template #noQuestionsFound>
+    <p class="h5 py-7">Fetching questions...</p>
+</ng-template>

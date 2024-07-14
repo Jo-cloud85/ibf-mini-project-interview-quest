@@ -1,0 +1,23 @@
+<div class="container mt-28">
+    <div class="text-4xl text-n-1 font-semibold pb-8">Upload any relevant documents e.g. resume, referral letter</div>
+    <h5 class="text-base font-bold mb-6 text-gray-600">Acceptable formats: .doc, .docx, pdf, .md, .txt</h5>
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+        <div class="mb-6">
+            <input 
+                type="file" 
+                accept=".doc,.docx,application/pdf,.md,.txt"
+                (change)="onFileChange($event)"
+                multiple>
+        </div>
+        <div class="grid grid-cols-4 gap-6 md:grid-cols-6">
+            <button 
+                [routerLink]="['/interview-quest/custom-job-form/02']" 
+                type="button" 
+                class="custom-button-01">Back</button>
+            <button 
+                type="submit" 
+                class="custom-button-01 disabled:opacity-50 disabled:cursor-not-allowed hover:disabled:bg-transparent hover:disabled:text-white"
+                [disabled]="files.length === 0">Next</button>
+        </div>
+    </form>
+</div>

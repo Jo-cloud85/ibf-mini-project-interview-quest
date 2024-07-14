@@ -1,0 +1,50 @@
+<div class="container mt-28">
+    <div class="text-4xl text-n-1 font-semibold pb-8">Tell us more about the job you are interviewing for</div>
+    <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
+        <div class="mb-6">
+            <label 
+                for="jobTitle" 
+                class="form-label">Job Title</label>
+            <input 
+                type="text" 
+                formControlName="jobTitle" 
+                class="form-input"
+                placeholder="Write your job title...">
+        </div>
+        <div class="mb-6">
+            <label 
+                for="jobDescription" 
+                class="form-label">Job Description</label>
+            <textarea 
+                rows=10
+                cols="5"
+                formControlName="jobDescription" 
+                class="form-input" 
+                placeholder="Write your job description..."></textarea>
+        </div>
+        <div class="mb-6">
+            <label 
+                for="jobLevel" 
+                class="form-label">Job Level</label>
+            <select formControlName="jobLevel" id="jobLevel" class="block p-2 border border-gray-300 rounded">
+                <option value="" disabled selected>Please select</option>
+                <option value="INTERNSHIP">Internship</option>
+                <option value="ENTRY">Entry</option>
+                <option value="JUNIOR">Junior</option>
+                <option value="MID">Mid</option>
+                <option value="SENIOR">Senior</option>
+                <option value="OTHERS">Others</option>
+            </select>
+        </div>
+        <div class="grid grid-cols-4 gap-6 md:grid-cols-6">
+            <button 
+                type="button" 
+                class="custom-button-01"
+                (click)="onBack()">Back</button>
+            <button 
+                type="submit" 
+                class="custom-button-01 disabled:opacity-50 disabled:cursor-not-allowed hover:disabled:bg-transparent hover:disabled:text-white"
+                [disabled]="!jobForm.valid">Next</button>
+        </div>
+    </form>
+</div>

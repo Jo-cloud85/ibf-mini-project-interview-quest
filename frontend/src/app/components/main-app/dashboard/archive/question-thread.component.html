@@ -1,0 +1,35 @@
+<div *ngIf="question" >
+    <!-- Question type and back button -->
+    <div class="flex items-center justify-between">
+        <p class="h5 py-7">{{ question.questionType }}</p>
+        <div>
+            <button 
+                type="button" 
+                (click)="backToAllAttemptedQuestions()" 
+                class="orange-button-01">Back
+            </button>
+        </div>
+    </div>
+    <!-- Question -->
+    <p class="pb-6">{{ question.question }}</p>
+</div>
+
+<div *ngIf="allSubThreads">
+    <div class="flex flex-col pe-10">
+        <!-- Question Sub Thread -->
+        <div *ngFor="let subThread of allSubThreads; let i = index;">
+            <div 
+                (click)="toggleAccordion()" 
+                class="cursor-pointer flex items-center justify-between w-full p-3 font-semibold text-sm text-left text-n-1 bg-transparent border border-n-3 focus:bg-n-3 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-n-3 dark:hover:bg-gray-800">
+                <p>{{ subThread.role | titlecase }}</p>
+            </div>
+            <div 
+                *ngIf="show"
+                class="p-3 border border-n-3 dark:border-gray-700">
+            <p 
+                class="mb-2 text-sm font-light" 
+                [innerHTML]="subThread.content">
+            </p>
+        </div>
+    </div>
+</div>
