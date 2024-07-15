@@ -5,6 +5,7 @@ import { Title } from '@angular/platform-browser';
 
 import {
   GoogleAuthProvider,
+  UserCredential,
   getAuth,
   sendEmailVerification,
   signInWithCustomToken,
@@ -111,24 +112,48 @@ export class SignUpComponent {
   // https://firebase.google.com/docs/auth/web/google-signin#handle_the_sign-in_flow_with_the_firebase_sdk
   processGoogleSignUp() {
     this.googleAuthProvider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
+    
     this.signUpAttempted = true;
-
+    
     signInWithPopup(this.auth, this.googleAuthProvider)
-      .then((result) => {
+      .then((result: any) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
+
         if (user) {
-          console.log('User signed up via Google.');
-          this.router.navigate(['/interview-quest']);
+          const { email, displayName } = user;
+
+          if (!email || !displayName) {
+            return Promise.reject('Email or displayName is missing.');
+          }
+
+          const [ firstName, lastName ] = displayName ? displayName.split(' ') : ['', ''];
+
+          return this.authSvc.googleSignUp(firstName, lastName, email)
+            .then((response: any) => {
+              const customToken = response.custom_token;
+              signInWithCustomToken(this.auth, customToken);
+            })
+            .then(() => {
+              console.log('User signed in via Google with custom token.');
+              sendEmailVerification(this.auth.currentUser!);
+            })
+            .then(() => {
+              console.log('Email verification sent.');
+              alert('A verification email has been sent to your email address. Please verify your email to complete the registration.');
+              this.router.navigate(['/interview-quest']);
+            })
+        } else {
+          return Promise.reject('User information is missing.');
         }
       })
-      .catch((error: FirebaseError) => {
-        console.log(error);
-        console.log(GoogleAuthProvider.credentialFromError(error)); // The AuthCredential type that was used
-      })
+      .catch((error: any) => {
+        console.error('Error during Google sign up process:', error);
+        this.signUpFailed = true;
+      });
   }
+
 
 
   ngOnDestroy(): void {

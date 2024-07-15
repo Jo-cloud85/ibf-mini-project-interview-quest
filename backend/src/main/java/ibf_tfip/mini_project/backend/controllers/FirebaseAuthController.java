@@ -78,6 +78,50 @@ public class FirebaseAuthController {
         }
     }
 
+    
+    // Sign Up
+    @PostMapping("/google-signup")
+    public ResponseEntity<?> googleSignUp(@RequestBody String requestPayload) {
+ 
+        JsonReader jsonReader = Json.createReader(new StringReader(requestPayload));
+        JsonObject requestJsonObj = jsonReader.readObject();
+ 
+        String email = requestJsonObj.getString("email");
+        String firstName = requestJsonObj.getString("firstName");
+        String lastName = requestJsonObj.getString("lastName");
+
+        if (fbAuthSvc.isEmailTaken(email)) {
+            return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body("Email is already taken.");
+        }
+
+        try {
+            UserAuthDetails user = new UserAuthDetails(
+                firstName,
+                lastName,
+                email,
+                false,
+                "null", // Password is not needed here
+                "null",
+                false,
+                null
+            );
+
+            UserRecord newUser = fbAuthSvc.createUser(user);
+            String customToken = fbAuthSvc.generateCustomToken(newUser);
+
+            JsonObject jsonObj = Json.createObjectBuilder()
+                .add("custom_token", customToken)
+                .build();
+            return ResponseEntity.status(HttpStatus.OK).body(jsonObj.toString());
+        } catch (FirebaseAuthException e) {
+            return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("Error creating user: " + e.getMessage());
+        }
+    }
+
 
     // Sign In
     @PostMapping("/signin")

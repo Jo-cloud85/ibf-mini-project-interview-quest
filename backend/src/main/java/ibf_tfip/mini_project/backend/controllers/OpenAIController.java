@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import ibf_tfip.mini_project.backend.configs.SecurityConfig;
+import ibf_tfip.mini_project.backend.exceptions.EmailException;
 import ibf_tfip.mini_project.backend.models.JobDetails;
 import ibf_tfip.mini_project.backend.models.JobSummary;
 import ibf_tfip.mini_project.backend.models.MainThread;
@@ -80,7 +81,6 @@ public class OpenAIController {
         System.out.println("Receiving form from frontend...");
 
         // Authenticate user first
-       
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not authenticated or token is invalid");
@@ -135,9 +135,13 @@ public class OpenAIController {
                     if (folderName != null && firebaseThreadKey != null && isAdded) {
 
                         // Send email to user
-                        String subject = "Custom job created!";
-                        String body = emailBody(username, jobTitle, baseUrl);
-                        emailSvc.sendEmail(email, subject, body);
+                        try {
+                            String subject = "Custom job created!";
+                            String body = emailBody(username, jobTitle, baseUrl);
+                            emailSvc.sendEmail(email, subject, body);
+                        } catch (EmailException e) {
+                            throw new EmailException("Failed to send email to user");
+                        }
 
                         // Send response to frontend
                         JsonObject jsonObject = Json.createObjectBuilder()

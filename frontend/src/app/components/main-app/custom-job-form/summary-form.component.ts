@@ -22,23 +22,25 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
   companyForm: any;
   uploadForm: any[] = [];
   isSubmitted = false;
+  isLoadingCustomJob: boolean = false;
 
   @Input() dashboardMode=true;
   @Input() formMode=false;
-  
-  private sub$?: Subscription;
-
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+
+  typewritingText: string[] = [ "Assistant AI created...", "Vector store created and uploaded files added to vector store...", "Assistant updated...", "Almost there..."];
 
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly jobStore = inject(JobStore);
   private readonly openAISvc = inject(OpenAIService);
   private readonly htmlTitle = inject(Title);
+
+  private sub$?: Subscription;
  
   readonly mainApp = inject(MainAppComponent);
 
-  isLoadingCustomJob: boolean = false;
+
 
   ngOnInit(): void {
     this.htmlTitle.setTitle('InterviewQuest | Create Job');
@@ -130,5 +132,33 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.sub$?.unsubscribe();
+  }
+
+  //// Type writing - CSS (each cycle is 7500ms) ////////////////////////////////////////////
+  // https://css-tricks.com/snippets/css/typewriter-effect/
+  typeWriter(text: string, i: number, fnCallback: () => void): void {
+    const element = document.querySelector(".type-writer");
+    if (element) {
+      if (i < text.length) {
+        element.innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
+        setTimeout(() => {
+          this.typeWriter(text, i + 1, fnCallback);
+        }, 75);
+      } else if (typeof fnCallback === 'function') {
+        setTimeout(fnCallback, 1000);
+      }
+    }
+  }
+
+  startTextAnimation(i: number): void {
+    if (typeof this.typewritingText[i] === 'undefined') {
+      setTimeout(() => {
+        this.startTextAnimation(0);
+      }, 7500); 
+    } else if (i < this.typewritingText[i].length) {
+      this.typeWriter(this.typewritingText[i], 0, () => {
+        this.startTextAnimation(i + 1);
+      });
+    }
   }
 }

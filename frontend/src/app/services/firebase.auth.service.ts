@@ -24,6 +24,17 @@ export class AuthService {
         )
     }
 
+    googleSignUp(firstName: string, lastName: string, email: string): Promise<any> {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json')
+
+        return firstValueFrom(this.http.post<{ token: string }>(
+            '/api/auth/google-signup', 
+            { firstName, lastName, email },
+            { headers }
+        ))
+    }
+
+    
     signIn(email: string, password: string): Promise<any> {
         return this.afAuth.signInWithEmailAndPassword(email, password)
             .then((userCredential) => {

@@ -74,12 +74,14 @@ http is still processing will cancel the api call the moment we redirect away --
         <p>Now let AI take some time to customize the questions for you.</p>
         <p>Please do not click away as this will cancel the request.</p>
         <div 
-            *ngIf="isLoadingCustomJob; else enableBackButton" class="dots-container mt-7">
+            *ngIf="isLoadingCustomJob; else enableBackButton" 
+            class="dots-container mt-7">
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
             <div class="dot"></div>
+            <div class="type-writer text-white mt-5 block"></div>
         </div>
         <ng-template #enableBackButton>
             <div>

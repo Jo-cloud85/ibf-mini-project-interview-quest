@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 })
 export class SidebarComponent {
 
-  interviewquest_logo: string = "assets/logo-dark.svg";
+  interviewquest_logo: string = "assets/logo-dark.svg"; 
   overview_icon: string = "assets/overview.svg";
   archive_icon: string = "assets/archive.svg";
   schedule_icon: string = "assets/schedule.png";
