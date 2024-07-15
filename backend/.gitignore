@@ -35,4 +35,4 @@ build/
 ### Others ###
 src/main/resources/static/json/
 .env
-tokens/
+tokens

@@ -42,3 +42,6 @@ create table schedule (
 
 -- grant all privileges on interview_quest.* to 'abcde'@'%';
 -- flush privileges;
+
+grant all privileges on interview_quest.* TO 'root'@'%';
+flush privileges;

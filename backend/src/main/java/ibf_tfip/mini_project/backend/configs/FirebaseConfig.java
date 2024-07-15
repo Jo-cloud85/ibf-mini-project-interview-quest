@@ -34,6 +34,9 @@ public class FirebaseConfig {
             throw new IllegalStateException("Service account Base64 not set in environment variables.");
         }
 
+        // Sanitize the base64 string to remove any unintended whitespace characters
+        serviceAccountBase64 = serviceAccountBase64.replaceAll("\\s", "");
+
         byte[] decodedBytes = Base64.getDecoder().decode(serviceAccountBase64);
 
         // Check if the decoded bytes are correctly formatted JSON

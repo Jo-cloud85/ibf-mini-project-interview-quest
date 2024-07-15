@@ -73,5 +73,10 @@
     "name": "google.calendar.api.key",
     "type": "java.lang.String",
     "description": "A description for 'google.calendar.api.key'"
+  },
+  {
+    "name": "base.url",
+    "type": "java.lang.String",
+    "description": "A description for 'base.url'"
   }
 ]}

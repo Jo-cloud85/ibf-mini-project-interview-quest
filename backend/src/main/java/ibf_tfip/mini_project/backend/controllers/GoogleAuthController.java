@@ -37,11 +37,12 @@ public class GoogleAuthController {
     @Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
     private String redirectUri;
 
+    @Value("${base.url}")
+    private String baseUrl;
+
     @Autowired
     private GoogleTokenService googleTokenSvc;
-
-    private String baseUrl = "https://zippy-strength-production.up.railway.app";
-
+    
 
     // https://developers.google.com/identity/protocols/oauth2/web-server#sample-oauth-2.0-server-response
     @GetMapping("/authorize-url")

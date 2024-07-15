@@ -9,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -61,9 +62,10 @@ public class OpenAIController {
     @Autowired
     private JobSummaryService jobSummarySvc;
 
-    private final Integer numberOfQns = 5;
+    @Value("${base.url}")
+    private String baseUrl;
 
-    private final String baseUrl = "https://zippy-strength-production.up.railway.app";
+    private final Integer numberOfQns = 5;
 
     // Each custom job created should have:
     // 1 custom job id, 1 assistant id, 1 vector id, 1 thread id (mainthread), multiple run ids 
