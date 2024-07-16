@@ -60,8 +60,6 @@ public class GoogleAuthController {
         Map<String, String> response = new HashMap<>();
         response.put("url", authorizationUrl);
 
-        // System.out.println("Authorization url: " + authorizationUrl);
-
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -89,11 +87,14 @@ public class GoogleAuthController {
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, requestEntity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(
+            tokenUrl, 
+            requestEntity, 
+            String.class);
         
         // This is the json object string with access_token, refresh_token etc.
         String tokenJsonStr = response.getBody(); 
-
+        
         // Store the json object in Redis
         if (response.getStatusCode() == HttpStatus.OK && tokenJsonStr != null) {
             try {
@@ -104,7 +105,7 @@ public class GoogleAuthController {
 
             // Redirect to frontend with a success flag
             HttpHeaders redirectHeaders = new HttpHeaders();
-            redirectHeaders.setLocation(URI.create(baseUrl + "/interview-quest/schedule?success=true"));
+            redirectHeaders.setLocation(URI.create(baseUrl + "/#/interview-quest/schedule?success=true"));
             return new ResponseEntity<>(redirectHeaders, HttpStatus.FOUND);
 
         } else {

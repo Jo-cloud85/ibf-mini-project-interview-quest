@@ -105,7 +105,7 @@ module.exports = {
           "@apply font-light text-[0.875rem] leading-6 md:text-base": {},
         },
         ".custom-button-01": {
-          "@apply rounded-full border-2 border-n-2 bg-transparent text-n-2 px-6 py-2 hover:bg-orange-400 hover:text-white transition duration-300": {},
+          "@apply rounded-full border-2 border-n-2 bg-transparent text-n-2 px-6 py-2 hover:bg-n-2 hover:text-white transition duration-300": {},
         },
         ".orange-button-01": {
           "@apply inline-flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-n-2 hover:bg-n-1 transition duration-300": {},
@@ -117,7 +117,7 @@ module.exports = {
           "@apply inline-flex justify-center py-3 px-4 border border-orange-500 text-n-2 shadow-sm text-sm font-medium rounded-lg bg-transparent hover:bg-n-1 hover:text-n-0 hover:border-transparent transition duration-300": {},
         },
         ".orange-outline-button-02": {
-          "@apply inline-flex justify-center p-3 border-2 border-orange-500 text-n-2 shadow-sm text-sm font-medium rounded-full bg-transparent hover:bg-n-1 hover:text-n-0 hover:border-transparent transition duration-300": {},
+          "@apply inline-flex justify-center p-3 border-2 border-orange-400 text-n-2 shadow-sm text-sm font-medium rounded-full bg-transparent hover:bg-n-1 hover:text-n-0 hover:border-transparent transition duration-300": {},
         },
         ".auth-form": {
           "@apply w-[32rem] mx-auto dark:bg-zinc-900 shadow-2xl rounded-2xl overflow-hidden bg-stroke-1 border-gray-300 dark:border-gray-200": {},

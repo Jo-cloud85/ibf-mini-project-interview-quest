@@ -54,7 +54,7 @@ public class GoogleCalendarController {
             scheduleJsonObj.getString("rruleStr"),
             scheduleJsonObj.getString("email")
         );
-
+        
         JsonObject jsonObj = Json.createObjectBuilder()
             .add("event_link", eventLink)
             .build();

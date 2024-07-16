@@ -315,17 +315,15 @@ public class OpenAIController {
                     "<html>" +
                     "<body>" +
                     "<h2>Hi " + firstName + ",</h2>" +
-                    "<h3>Your interview questions for custom job: </h3>" +
-                    "<h3>" + jobTitle + "</h3>" +
-                    "<h3>are ready!</h3><br>" + 
+                    "<h3>Your interview questions for custom job: " + jobTitle + " are ready!</h3><br>" + 
                     "<p>Click on the button below to embark on your quest.</p>" +
-                    "<p><a href='" + baseUrl + "/interview-quest/overview' style='display: inline-block; " +
+                    "<p><a href='" + baseUrl + "/#/interview-quest/overview' style='display: inline-block; " +
                         "padding: 10px 20px; " +
                         "border: 2px solid white; " +
                         "border-radius: 8px; " +
                         "background-color: #FE7E35; " +
-                        "color: #F7F6F4; " +
-                        "text-decoration: none;'>" +  // Corrected here
+                        "color: white; " +
+                        "text-decoration: none;'>" +
                         "Have fun practicing!" +
                     "</a></p>" +
                     "<p>Best Regards,<br>InterviewQuest Team</p>" +

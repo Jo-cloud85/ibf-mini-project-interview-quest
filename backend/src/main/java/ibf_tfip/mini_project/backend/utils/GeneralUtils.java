@@ -5,6 +5,5 @@ public class GeneralUtils {
 
     public static final String REDIS_BEAN_1 = "redis_1";
 
-    public static final String KEY_CALENDAR_ID = "calendarId";
     public static final String KEY_TOKENS = "calendarTokens";
 }

@@ -10,6 +10,18 @@
                 formControlName="jobTitle" 
                 class="form-input"
                 placeholder="Write your job title...">
+            <div class="mt-3" *ngIf="jobForm.get('jobTitle')?.touched && jobForm.get('jobTitle')?.invalid">
+                <p 
+                    class="text-xs text-n-2"
+                    *ngIf="jobForm.get('jobTitle')?.hasError('required')">
+                    This field is required!
+                </p>
+                <p 
+                    class="text-xs text-n-2"
+                    *ngIf="jobForm.get('jobTitle')?.hasError('minlength')">
+                    Must be at least 5 or more characters
+                </p>
+            </div>
         </div>
         <div class="mb-6">
             <label 
@@ -20,13 +32,26 @@
                 cols="5"
                 formControlName="jobDescription" 
                 class="form-input" 
-                placeholder="Write your job description..."></textarea>
+                placeholder="Write your job description...">
+            </textarea>
+            <div class="mt-3" *ngIf="jobForm.get('jobDescription')?.touched && jobForm.get('jobDescription')?.invalid">
+                <p 
+                    class="text-xs text-n-2"
+                    *ngIf="jobForm.get('jobDescription')?.hasError('required')">
+                    This field is required!
+                </p>
+                <p 
+                    class="text-xs text-n-2"
+                    *ngIf="jobForm.get('jobDescription')?.hasError('minlength')">
+                    Must be at least 50 or more characters
+                </p>
+            </div>
         </div>
         <div class="mb-6">
             <label 
                 for="jobLevel" 
                 class="form-label">Job Level</label>
-            <select formControlName="jobLevel" id="jobLevel" class="block p-2 border border-gray-300 rounded">
+            <select formControlName="jobLevel" id="jobLevel" class="form-input">
                 <option value="" disabled selected>Please select</option>
                 <option value="INTERNSHIP">Internship</option>
                 <option value="ENTRY">Entry</option>
@@ -35,6 +60,13 @@
                 <option value="SENIOR">Senior</option>
                 <option value="OTHERS">Others</option>
             </select>
+            <div class="mt-3" *ngIf="jobForm.get('jobLevel')?.touched && jobForm.get('jobLevel')?.invalid">
+                <p 
+                    class="text-xs text-n-2"
+                    *ngIf="jobForm.get('jobLevel')?.hasError('required')">
+                    This field is required!
+                </p>
+            </div>
         </div>
         <div class="grid grid-cols-4 gap-6 md:grid-cols-6">
             <button 

@@ -108,12 +108,12 @@
                     <div class="mt-3" *ngIf="signUpForm.get('password')?.touched && signUpForm.get('password')?.invalid">
                         <p 
                             class="text-xs text-n-2"
-                            *ngIf="signUpForm.get('email')?.hasError('required')">
+                            *ngIf="signUpForm.get('password')?.hasError('required')">
                             This field is required!
                         </p>
                         <p 
                             class="text-xs text-n-2"
-                            *ngIf="signUpForm.get('email')?.hasError('passwordValidator')">
+                            *ngIf="signUpForm.get('password')?.hasError('passwordValidator')">
                             Must contain at least 1 number, and at least 8 or more characters
                         </p>
                     </div>

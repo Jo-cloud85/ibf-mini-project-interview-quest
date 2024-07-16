@@ -1,7 +1,6 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { JobSummaryService } from '../../../services/job.summary.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { JobStore } from '../../../stores/job.store';
@@ -28,19 +27,27 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
   @Input() formMode=false;
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  typewritingText: string[] = [ "Assistant AI created...", "Vector store created and uploaded files added to vector store...", "Assistant updated...", "Almost there..."];
+  typewritingText: string[] = [ 
+    "Creating Assistant AI...", 
+    "Files uploaded...",
+    "Creating vector store...", 
+    "Adding uploaded files to vector store...", 
+    "Updating Assistant AI...", 
+    "Creating thread...", 
+    "Assistant AI responding...", 
+    "Almost there...", 
+    "Almost..."];
 
   private readonly fb = inject(FormBuilder);
   private readonly router = inject(Router);
   private readonly jobStore = inject(JobStore);
   private readonly openAISvc = inject(OpenAIService);
   private readonly htmlTitle = inject(Title);
+  private readonly changeDetectorRef = inject(ChangeDetectorRef);
 
   private sub$?: Subscription;
  
   readonly mainApp = inject(MainAppComponent);
-
-
 
   ngOnInit(): void {
     this.htmlTitle.setTitle('InterviewQuest | Create Job');
@@ -92,9 +99,10 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
 
     this.isSubmitted = true;
     this.formMode=false;
-
     this.isLoadingCustomJob = true;
-
+    this.changeDetectorRef.detectChanges();
+    this.startTextAnimation(0);
+    
     // This response will take time
     this.sub$ = this.openAISvc.createNewCustomJob(formData).subscribe({
       next: (result: any) => {

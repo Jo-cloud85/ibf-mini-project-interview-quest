@@ -6,6 +6,7 @@ import { futureDateValidator } from '../../../../custom.validators';
 import { Subscription } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GoogleAuthService } from '../../../../services/google.auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-schedule',
@@ -26,13 +27,14 @@ export class ScheduleComponent implements OnInit, OnDestroy {
   subDelete$ !: Subscription;
 
   private readonly fb = inject(FormBuilder);
+  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly googleCalendarSvc = inject(GoogleCalendarService);
   private readonly googleAuthSvc = inject(GoogleAuthService);
 
   //// Initialization //////////////////////////////////////////////////////////////
   ngOnInit(): void {
     this.initializeForm();
-    this.handleOAuthCallback();
+    this.handleGoogleOAuthCallback();
   }
 
   private initializeForm(): void {
@@ -47,30 +49,30 @@ export class ScheduleComponent implements OnInit, OnDestroy {
     });
   }
   
-  private handleOAuthCallback(): void {
-    const urlParams = new URLSearchParams(window.location.search);
-    const success = urlParams.get('success');
+  private handleGoogleOAuthCallback(): void {
+    this.activatedRoute.queryParams.subscribe(params => {
+      const success = params['success'];
 
-    if (success) {
-      // Retrieve form data from localStorage
-      const formData = JSON.parse(localStorage.getItem('scheduleFormData') || '{}');
+      if (success) {
+        // Retrieve form data from localStorage
+        const formData = JSON.parse(localStorage.getItem('scheduleFormData') || '{}');
 
-      if (Object.keys(formData).length) {
-        this.subCreate$ = this.googleCalendarSvc.createSchedule(formData)
-          .subscribe({
-            next: (response: any) => {
-              console.log('Schedule created:', response.event_link);
-              localStorage.removeItem('scheduleFormData'); // Clear stored formData
-            },
-            error: (error: HttpErrorResponse) => {
-              console.error('An unexpected error occurred:', error.message);
-            },
-            complete: () => {
-              console.log('Retrieve all schedules completed.');
-            }
-          });
+        if (Object.keys(formData).length) {
+          this.subCreate$ = this.googleCalendarSvc.createSchedule(formData)
+            .subscribe({
+              next: (response: any) => {
+                localStorage.removeItem('scheduleFormData'); // Clear localStorage
+              },
+              error: (error: HttpErrorResponse) => {
+                console.error('An unexpected error occurred:', error.message);
+              },
+              complete: () => {
+                console.log('Retrieve all schedules completed.');
+              }
+            });
+        }
       }
-    }
+    })
   }
 
 

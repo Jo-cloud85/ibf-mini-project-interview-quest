@@ -5,7 +5,6 @@ import { Title } from '@angular/platform-browser';
 
 import {
   GoogleAuthProvider,
-  UserCredential,
   getAuth,
   sendEmailVerification,
   signInWithCustomToken,
@@ -153,7 +152,6 @@ export class SignUpComponent {
         this.signUpFailed = true;
       });
   }
-
 
 
   ngOnDestroy(): void {

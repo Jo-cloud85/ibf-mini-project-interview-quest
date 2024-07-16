@@ -44,20 +44,20 @@
             class="z-10 hidden bg-n-0 divide-y divide-gray-100 rounded-lg shadow-md w-52 dark:bg-gray-700 dark:divide-gray-600">
             <div class="pt-6 pb-4 px-4 text-sm border-b border-n-3 text-gray-900 dark:text-white">
                 <p class="font-semibold pb-1">{{auth.currentUser?.displayName}}</p>
-                <p class="font-medium truncate">{{auth.currentUser?.email}}</p>
+                <p class="font-medium">{{auth.currentUser?.email}}</p>
             </div>
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="avatarButton">
                 <li>
                     <a 
                         [routerLink]="['/interview-quest/profile']" 
-                        class="block px-4 py-3 hover:bg-n-1 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white">
+                        class="block px-4 py-3 hover:bg-n-1 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer">
                         Profile
                     </a>
                 </li>
                 <li>
                     <a 
                         (click)="processSignOut()"
-                        class="block px-4 py-3 hover:bg-n-1 hover:text-white  dark:hover:bg-gray-600 dark:hover:text-white">
+                        class="block px-4 py-3 hover:bg-n-1 hover:text-white dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer">
                         Sign out
                     </a>
                 </li>

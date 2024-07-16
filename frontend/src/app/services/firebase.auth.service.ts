@@ -67,7 +67,7 @@ export class AuthService {
     onAuthStateChanged(): void {
         this.afAuth.onAuthStateChanged((user) => {
             if (user) {
-                console.log('User is signed in:', user);
+                console.log('User is signed in.');
                 if (!user.emailVerified) {
                 console.log('Email not verified.');
                 }
