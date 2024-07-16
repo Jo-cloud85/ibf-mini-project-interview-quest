@@ -70,7 +70,9 @@ public class FirebaseAuthController {
             JsonObject jsonObj = Json.createObjectBuilder()
                 .add("custom_token", customToken)
                 .build();
-            return ResponseEntity.status(HttpStatus.OK).body(jsonObj.toString());
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jsonObj.toString());
         } catch (FirebaseAuthException e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -114,7 +116,9 @@ public class FirebaseAuthController {
             JsonObject jsonObj = Json.createObjectBuilder()
                 .add("custom_token", customToken)
                 .build();
-            return ResponseEntity.status(HttpStatus.OK).body(jsonObj.toString());
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jsonObj.toString());
         } catch (FirebaseAuthException e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

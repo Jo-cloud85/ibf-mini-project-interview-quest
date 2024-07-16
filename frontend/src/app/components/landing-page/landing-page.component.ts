@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { NavigationItem } from '../../models/ui.model';
 
 @Component({
   selector: 'app-landing-page',

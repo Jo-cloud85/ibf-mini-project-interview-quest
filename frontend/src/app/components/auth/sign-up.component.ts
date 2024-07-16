@@ -90,12 +90,12 @@ export class SignUpComponent {
           })
           .catch((error: HttpErrorResponse) => {
             this.signUpFailed = true;
-            console.error('Error signing in with custom token:', error);
+            alert('Error signing in with custom token: ' + error);
           });
       },
       error: (error: FirebaseError) => {
         this.signUpFailed = true;
-        console.error('Error during sign up:', error);
+        alert('Error during sign up: ' + error);
         if (error.code === "400") {
           alert('Looks like this email has been taken. Please try with a different email account.');
         }

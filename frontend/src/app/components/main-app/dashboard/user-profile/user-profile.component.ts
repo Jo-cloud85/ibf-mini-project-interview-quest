@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../../services/firebase.auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { User} from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
@@ -17,7 +16,6 @@ export class UserProfileComponent {
   sub$!: Subscription;
   user: any;
 
-
   private readonly fb = inject(FormBuilder);
   private readonly authSvc = inject(AuthService);
   private readonly afAuth = inject(AngularFireAuth);
@@ -25,15 +23,16 @@ export class UserProfileComponent {
 
   ngOnInit(): void {
     // Get the current user asynchronously
-    this.afAuth.currentUser.then((user: any) => {
+    this.afAuth.currentUser
+    .then((user: any) => {
       if (user && user.email) {
         this.authSvc.getProfile(user.email).subscribe({
           next: (response: any) => {
             this.user = response;
             this.profileForm = this.fb.group({
-              displayName: [this.user.displayName, [Validators.required, Validators.minLength(3)]],
-              email: [{value: this.user.email, disabled: true}],
-              photoUrl: [this.user.photoUrl]
+              displayName: this.fb.control<string>(this.user.displayName, [Validators.required, Validators.minLength(3)]),
+              email: this.fb.control<string>({value: this.user.email, disabled: true}),
+              photoUrl: this.fb.control<string>(this.user.photoUrl)
             });
           },
           error: (error: HttpErrorResponse) => {
@@ -43,7 +42,8 @@ export class UserProfileComponent {
       } else {
         console.error('No user is currently signed in.');
       }
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error('Error getting current user:', error);
     });
   }
@@ -52,7 +52,8 @@ export class UserProfileComponent {
     const displayName = this.profileForm.get('displayName')?.value;
     const photoUrl = this.profileForm.get('photoUrl')?.value;
 
-    this.afAuth.currentUser.then((user: any) => {
+    this.afAuth.currentUser
+    .then((user: any) => {
       if (user && user.email) {
         this.authSvc.updateProfile({email: user.email, displayName, photoUrl}).subscribe({
           next: (response: any) => {

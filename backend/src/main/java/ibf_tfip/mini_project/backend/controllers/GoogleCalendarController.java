@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ibf_tfip.mini_project.backend.exceptions.CalendarException;
 import ibf_tfip.mini_project.backend.models.Schedule;
 import ibf_tfip.mini_project.backend.services.GoogleCalendarService;
 import jakarta.json.Json;
@@ -54,13 +55,18 @@ public class GoogleCalendarController {
             scheduleJsonObj.getString("rruleStr"),
             scheduleJsonObj.getString("email")
         );
+
+        if (!eventLink.isEmpty()) {
+            JsonObject jsonObj = Json.createObjectBuilder()
+                .add("event_link", eventLink)
+                .build();
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(jsonObj.toString());
+        } else {
+            throw new CalendarException();
+        }
         
-        JsonObject jsonObj = Json.createObjectBuilder()
-            .add("event_link", eventLink)
-            .build();
-        return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(jsonObj.toString());
     }
 
 
@@ -89,6 +95,14 @@ public class GoogleCalendarController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(jsonArr.build().toString());
+
+        } catch (CalendarException e) {
+            JsonObject jsonObject = Json.createObjectBuilder()
+                .add("error_message", "An unexpected error occurred: " + e.getMessage())
+                .build();
+            return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(jsonObject.toString());
 
         } catch (Exception e) {
             JsonObject jsonObject = Json.createObjectBuilder()

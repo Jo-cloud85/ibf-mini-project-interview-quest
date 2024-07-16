@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import ibf_tfip.mini_project.backend.configs.SecurityConfig;
+import ibf_tfip.mini_project.backend.exceptions.NoSubThreadFoundException;
 import ibf_tfip.mini_project.backend.models.MainThread.ThreadContent;
 import ibf_tfip.mini_project.backend.models.Question;
 import ibf_tfip.mini_project.backend.models.QuestionSummary;
@@ -81,7 +82,11 @@ public class QnsThreadController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(convertQnsListToJsonStr(qnsList));
-            
+
+        } catch (NoSubThreadFoundException e) {
+            return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -129,7 +134,11 @@ public class QnsThreadController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(convertQnsSummListToJsonStr(questionSummList));
-            
+        
+        } catch (NoSubThreadFoundException e) {
+            return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(e.getMessage());
         } catch (Exception e) {
             return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -153,7 +162,10 @@ public class QnsThreadController {
             return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(convertThreadContentListToJsonStr(qnsSubThreadContents));
-                
+        } catch (NoSubThreadFoundException e) {
+            return ResponseEntity
+                .status(HttpStatus.NO_CONTENT)
+                .body(e.getMessage());
         } catch (Exception e) {
             JsonObject jsonObj = Json.createObjectBuilder()
                 .add("error_message", "An unexpected error occured: " + e.getMessage())

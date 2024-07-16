@@ -26,6 +26,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import ibf_tfip.mini_project.backend.configs.SecurityConfig;
 import ibf_tfip.mini_project.backend.exceptions.EmailException;
+import ibf_tfip.mini_project.backend.exceptions.FirebaseAuthException;
 import ibf_tfip.mini_project.backend.models.JobDetails;
 import ibf_tfip.mini_project.backend.models.JobSummary;
 import ibf_tfip.mini_project.backend.models.MainThread;
@@ -85,7 +86,7 @@ public class OpenAIController {
         // Authenticate user first
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !(authentication.getPrincipal() instanceof String)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User is not authenticated or token is invalid");
+            throw new FirebaseAuthException();
         }
         String userId = (String) authentication.getPrincipal();
         String username = authentication.getName();

@@ -1,9 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { QnsThreadService } from '../../../../services/qns.thread.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { JobSummary } from '../../../../models/logic.models';
-import { HttpErrorResponse } from '@angular/common/http';
-import { JobSummaryService } from '../../../../services/job.summary.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-archive',

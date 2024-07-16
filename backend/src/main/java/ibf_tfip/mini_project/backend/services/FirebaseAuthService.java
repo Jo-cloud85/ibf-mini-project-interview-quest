@@ -16,6 +16,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.auth.UserRecord.CreateRequest;
 import com.google.firebase.auth.UserRecord.UpdateRequest;
 
+import ibf_tfip.mini_project.backend.exceptions.MySqlDBException;
 import ibf_tfip.mini_project.backend.models.UserAuthDetails;
 import ibf_tfip.mini_project.backend.repositories.AuthRepo;
 
@@ -115,10 +116,12 @@ public class FirebaseAuthService {
         userDetails.setUserId(userId);
 
         // Save userDetails to MySql
-        authRepo.createNewUser(userDetails);
-
-        System.out.println("Successfully created new user: " + userRecord.getUid());
-        return userRecord;
+        if (authRepo.createNewUser(userDetails)) {
+            System.out.println("Successfully created new user: " + userRecord.getUid());
+            return userRecord;
+        } else {
+            throw new MySqlDBException();
+        }
     }
 
 
@@ -148,14 +151,15 @@ public class FirebaseAuthService {
 
     // Delete User
     // https://firebase.google.com/docs/auth/admin/manage-users#delete_a_user
-    public boolean deleteUser(
-        UserAuthDetails userInfo) throws FirebaseAuthException {
+    // public boolean deleteUser(
+    //     UserAuthDetails userInfo) throws FirebaseAuthException {
 
-        boolean isDeleted = false;
+    //     boolean isDeleted = false;
         
-        auth.deleteUser(userInfo.getUserId());
-        System.out.println("Successfully deleted user.");
-        isDeleted = true;
-        return isDeleted;
-    }
+    //     auth.deleteUser(userInfo.getUserId());
+
+    //     System.out.println("Successfully deleted user.");
+    //     isDeleted = true;
+    //     return isDeleted;
+    // }
 }       

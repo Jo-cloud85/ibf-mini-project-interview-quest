@@ -34,24 +34,4 @@ public class AuthRepo {
             return true;
         return false;
     }
-
-    // public String getHashedPasswordByEmail(String email) {
-    //     SqlRowSet rs = template.queryForRowSet(Queries.SQL_AUTH_GET_HASHED_PASSWORD_BY_EMAIL, email);
-    //     if (rs.next())
-    //         return rs.getString("passwordHash");
-    //     return null;
-    // }
-
-    // public String getHashedPasswordById(String userId) {
-    //     SqlRowSet rs = template.queryForRowSet(Queries.SQL_AUTH_GET_HASHED_PASSWORD_BY_ID, userId);
-    //     if (rs.next())
-    //         return rs.getString("passwordHash");
-    //     return null;
-    // }
-
-    // public String updateUserPassword(String userId, String newHashedPassword) {
-    //    int rowsAffected = template.update(Queries.SQL_AUTH_PASSWORD_CHANGE, newHashedPassword, userId);
-    //    if (rowsAffected==0) return null;
-    //    return newHashedPassword;
-    // }
 }

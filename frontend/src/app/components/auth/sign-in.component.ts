@@ -90,6 +90,7 @@ export class SignInComponent {
         .catch((error) => {
           console.error('Error sending password reset email:', error);
           this.errorMessage = 'An error occurred while sending the password reset email. Please try again.';
+          alert(this.errorMessage);
         });
     }
   }
@@ -113,8 +114,8 @@ export class SignInComponent {
         }
       })
       .catch((error: FirebaseError) => {
-        console.log(error);
         console.log(GoogleAuthProvider.credentialFromError(error)); // The AuthCredential type that was used
+        alert(error);
       })
   }
 
