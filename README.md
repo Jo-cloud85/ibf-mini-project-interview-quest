@@ -25,10 +25,11 @@ Users should be able to:
 -   Schedule practices with Google Calendar
 
 ### Screenshots
-
--   Main: ![./public/screenshots/main.png](/public/screenshots/main.png)
--   Overview: ![./public/screenshots/overview.png](./public/screenshots/overview.png)
--   Archive: ![./public/screenshots/archive.png](./public/screenshots/archive.png)
+-   Overview: ![screenshots/overview.png](screenshots/overview.png)
+-   Overview Question List: ![screenshots/overview_question-list.png](screenshots/overview_question-list.png)
+-   Overview Question: ![screenshots/overview-question.png](screenshots/overview-question.png)
+-   Archive Sub Thread: ![screenshots/archive_sub-thread.png](screenshots/archive_sub-thread.png)
+-   Schedule: ![screenshots/schedule.png](screenshots/schedule.png)
 
 ### Links
 

@@ -13,7 +13,7 @@
         <div 
             *ngFor="let job of jobSummList" 
             (click)="retrieveAllQns(job.customJobId)" 
-            class="w-64 p-6 bg-n-3 rounded-lg flex flex-col gap-3 cursor-pointer"
+            class="w-72 p-6 bg-n-3 rounded-lg flex flex-col gap-3 cursor-pointer"
         >
             <p class="font-bold min-h-16">{{job.title}}</p>
             <p>{{job.level | titlecase }} level</p>
