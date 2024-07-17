@@ -142,7 +142,7 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
     this.sub$?.unsubscribe();
   }
 
-  //// Type writing - CSS (each cycle is 7500ms) ////////////////////////////////////////////
+  //// Type writing - CSS (each cycle is 10000ms) ////////////////////////////////////////////
   // https://css-tricks.com/snippets/css/typewriter-effect/
   typeWriter(text: string, i: number, fnCallback: () => void): void {
     const element = document.querySelector(".type-writer");
@@ -162,7 +162,7 @@ export class SummaryFormComponent implements OnInit, OnDestroy {
     if (typeof this.typewritingText[i] === 'undefined') {
       setTimeout(() => {
         this.startTextAnimation(0);
-      }, 7500); 
+      }, 10000); 
     } else if (i < this.typewritingText[i].length) {
       this.typeWriter(this.typewritingText[i], 0, () => {
         this.startTextAnimation(i + 1);
