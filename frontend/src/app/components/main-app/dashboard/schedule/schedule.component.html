@@ -194,16 +194,16 @@
             <div *ngIf="showSchedules">
                 <ul 
                     *ngIf="schedules; else noSchedule;"
-                    class="mt-4 space-y-4">
+                    class="mt-4 flex flex-wrap gap-6">
                     <li 
                         *ngFor="let schedule of schedules" 
-                        class="w-72 p-6 bg-n-3 rounded-lg flex flex-wrap gap-3"
+                        class="w-72 p-6 bg-n-3 rounded-lg flex flex-col gap-3"
                     >
                         <h3 class="text-lg font-bold">{{ schedule.title }}</h3>
                         <p>{{ schedule.description }}</p>
                         <p>Starts: {{ schedule.startDateTime | date: 'short' }}</p>
                         <p>Duration: {{ getDurationInHours(schedule.startDateTime, schedule.endDateTime) | number: '1.1-1' }} hours</p>
-                        <div class="flex gap-3">
+                        <div class="flex gap-x-3">
                             <a 
                                 class="hover:underline-offset-4" 
                                 [href]="schedule.url" 

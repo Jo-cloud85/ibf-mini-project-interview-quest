@@ -148,8 +148,9 @@ export class SignUpComponent {
         }
       })
       .catch((error: any) => {
-        console.error('Error during Google sign up process:', error);
         this.signUpFailed = true;
+        console.error('Error during Google sign up process:', error);
+        alert(error);
       });
   }
 

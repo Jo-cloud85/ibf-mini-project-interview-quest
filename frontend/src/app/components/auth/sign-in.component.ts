@@ -68,9 +68,9 @@ export class SignInComponent {
         })
         .catch((error: HttpErrorResponse) => {
           this.signInFailed = true;
-          console.error('HttpError during sign in:', error);
           this.errorMessage = error.message;
           alert(this.errorMessage);
+          console.error('HttpError during sign in:', this.errorMessage);
         });
     }
   }
@@ -88,9 +88,9 @@ export class SignInComponent {
           alert('Password reset email sent successfully. Please check your inbox.');
         })
         .catch((error) => {
-          console.error('Error sending password reset email:', error);
           this.errorMessage = 'An error occurred while sending the password reset email. Please try again.';
           alert(this.errorMessage);
+          console.error(this.errorMessage);
         });
     }
   }
@@ -114,7 +114,10 @@ export class SignInComponent {
         }
       })
       .catch((error: FirebaseError) => {
+        alert(error);
         console.log(GoogleAuthProvider.credentialFromError(error)); // The AuthCredential type that was used
+      })
+      .catch((error: HttpErrorResponse) => {
         alert(error);
       })
   }
